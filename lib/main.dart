@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
           constraints: BoxConstraints.expand(),
           color: Colors.white,
           child: Column(
@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(150, 0, 0, 80),
+                padding: const EdgeInsets.fromLTRB(150, 10, 0, 100),
                 child: Container(
                   width: 70,
                   height: 70,
@@ -44,13 +44,13 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
                 child: Text(
                   "Enter your emails and password",
                   style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: const Color.fromARGB(255, 175, 171, 171),
-                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.black,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
               Stack(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                     child: TextField(
                       style: TextStyle(fontSize: 19, color: Colors.black),
                       obscureText: true,
@@ -86,6 +86,78 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 65,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 98, 175, 143),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    onPressed: onSignInClicked,
+                    child: Text(
+                      "Log In",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 100),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: Text(
+                        "Signup",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromARGB(255, 98, 175, 143),
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -93,3 +165,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+void onSignInClicked() {}
