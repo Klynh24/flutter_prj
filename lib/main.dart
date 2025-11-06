@@ -23,16 +23,18 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(150, 10, 0, 100),
-                child: Container(
-                  width: 70,
-                  height: 70,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color.fromARGB(153, 105, 102, 102),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 80),
+                child: Center(
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    padding: EdgeInsets.all(0),
+                    child: Image.asset(
+                      'assets/login_logo.png',
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                    ),
                   ),
-                  child: FlutterLogo(),
                 ),
               ),
               Text(
