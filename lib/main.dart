@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter01_login/signup.dart';
 import 'package:flutter01_login/product_detail.dart';
+import 'package:flutter01_login/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -201,7 +202,7 @@ class _LogInState extends State<LogIn> {
   void onLogInClicked() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProductDetail()),
+      MaterialPageRoute(builder: (context) => HomeScreen()),
     );
   }
 
@@ -215,5 +216,9 @@ class _LogInState extends State<LogIn> {
 
   Widget gotoProductDetail(BuildContext context) {
     return ProductDetail();
+  }
+
+  Widget gotoHomeScreen(BuildContext context) {
+    return HomeScreen();
   }
 }
