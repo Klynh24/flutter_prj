@@ -62,6 +62,19 @@ flutter:
     - assets/login_logo.png
     - assets/product_img.png
     - assets/banner.png
+    - assets/banana_img.png
+    - assets/beefbone_img.png
+    - assets/bellpepper_img.png
+    - assets/broilerchicken_img.png
+    - assets/ginger_img.png
+    - assets/pulses_img.png
+    - assets/rice_img.png
+    - assets/bakerysnacks_img.png
+    - assets/beverages_img.png
+    - assets/cookingoil_img.png
+    - assets/dairyeggs_img.png
+    - assets/fruitsvegetables_img.png
+    - assets/meatfish_img.png
     #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
