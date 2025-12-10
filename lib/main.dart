@@ -23,8 +23,23 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   bool _showPass = false;
+  TextEditingController _userController = new TextEditingController();
+  TextEditingController _passController = new TextEditingController();
+
+  var _userNameErr = "Email không hợp lệ";
+  var _passErr = "Mật khẩu phải trên 6 ký tự";
+
+  var _userInvalid = false;
+  var _passInvalid = false;
+
   @override
   Widget build(BuildContext context) {
+    bool isValidLogin =
+        !_userInvalid &&
+        !_passInvalid &&
+        _userController.text.isNotEmpty &&
+        _passController.text.isNotEmpty;
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -72,9 +87,12 @@ class _LogInState extends State<LogIn> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: TextField(
+                  controller: _userController,
                   style: TextStyle(fontSize: 19, color: Colors.black),
+                  onChanged: onEmailChanged,
                   decoration: InputDecoration(
                     labelText: "Email",
+                    errorText: _userInvalid ? _userNameErr : null,
                     labelStyle: TextStyle(
                       color: const Color.fromARGB(255, 175, 171, 171),
                       fontSize: 20,
@@ -87,10 +105,13 @@ class _LogInState extends State<LogIn> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                     child: TextField(
+                      controller: _passController,
                       style: TextStyle(fontSize: 19, color: Colors.black),
                       obscureText: !_showPass,
+                      onChanged: onPassChanged,
                       decoration: InputDecoration(
                         labelText: "Password",
+                        errorText: _passInvalid ? _passErr : null,
                         labelStyle: TextStyle(
                           color: const Color.fromARGB(255, 175, 171, 171),
                           fontSize: 20,
@@ -126,18 +147,15 @@ class _LogInState extends State<LogIn> {
                     height: 65,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          98,
-                          175,
-                          143,
-                        ),
+                        backgroundColor: isValidLogin
+                            ? const Color.fromARGB(255, 98, 175, 143)
+                            : Colors.grey,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: onLogInClicked,
+                      onPressed: isValidLogin ? onLogInClicked : null,
                       child: Text(
                         "Log In",
                         style: TextStyle(
@@ -196,6 +214,29 @@ class _LogInState extends State<LogIn> {
   void onToggleShowPass() {
     setState(() {
       _showPass = !_showPass;
+    });
+  }
+
+  void onEmailChanged(String text) {
+    setState(() {
+      bool emailValid = RegExp(
+        r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+      ).hasMatch(text);
+      if (!emailValid) {
+        _userInvalid = true;
+      } else {
+        _userInvalid = false;
+      }
+    });
+  }
+
+  void onPassChanged(String text) {
+    setState(() {
+      if (text.length < 6) {
+        _passInvalid = true;
+      } else {
+        _passInvalid = false;
+      }
     });
   }
 
