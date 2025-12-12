@@ -1,314 +1,309 @@
 import 'package:flutter/material.dart';
-import 'package:flutter01_login/main.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'detail_cubit.dart';
 
-void main() {
-  runApp(ProductDetail());
-}
+class ProductDetail extends StatelessWidget {
+  final Map<String, dynamic> product;
 
-class ProductDetail extends StatefulWidget {
-  @override
-  State<ProductDetail> createState() => _PDetailState();
-}
+  const ProductDetail({super.key, required this.product});
 
-class _PDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: Container(
-          constraints: BoxConstraints.expand(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsGeometry.fromLTRB(0, 0, 0, 0),
-                child: Stack(
+    return BlocProvider(
+      create: (context) => DetailCubit(product),
+      child: const ProductDetailView(),
+    );
+  }
+}
+
+class ProductDetailView extends StatelessWidget {
+  const ProductDetailView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DetailCubit, DetailState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
                     Container(
                       height: 300,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 228, 226, 226),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFF2F3F2),
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(25),
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsGeometry.fromLTRB(0, 25, 0, 0),
-                        child: Image.asset(
-                          'assets/product_img.png',
-                          height: 190,
-                          width: 190,
+                        padding: const EdgeInsets.all(40),
+                        child: Image.asset(state.image, fit: BoxFit.contain),
+                      ),
+                    ),
+                    Positioned(
+                      top: 50,
+                      left: 20,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 30,
-                      left: 10,
-                      child: IconButton(
-                        icon: GestureDetector(
-                          onTap: onGoBackClicked,
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
+                      top: 50,
+                      right: 20,
+                      child: const Icon(Icons.ios_share, color: Colors.black),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Naturel Red Apple",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Icon(Icons.favorite_border, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Text(
-                  "1kg, Price",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontSize: 18,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.remove, color: Colors.grey, size: 30),
-                        SizedBox(width: 8),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(color: Colors.grey, width: 0.6),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text("1", style: TextStyle(fontSize: 22)),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.add, color: Colors.green, size: 30),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                    child: Text(
-                      "\$4.99",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 8),
-                child: Divider(color: Colors.grey, thickness: 1, height: 20),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Product Detail",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 8, 15, 0),
-                      child: Icon(Icons.arrow_drop_down, size: 33),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Text(
-                  "Apples Are Nutritious. Apples May Be Good For Weight Loss. "
-                  "\nApples may be good for your heart. As part of a healthful and varied diet.",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                child: Divider(color: Colors.grey, thickness: 1, height: 20),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Nutritions",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
+                          Expanded(
+                            child: Text(
+                              state.name,
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text("100gr"),
                             ),
                           ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20,
-                            color: Colors.black,
+                          IconButton(
+                            icon: Icon(
+                              state.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: state.isFavorite
+                                  ? Colors.red
+                                  : Colors.grey,
+                              size: 30,
+                            ),
+                            onPressed: () =>
+                                context.read<DetailCubit>().toggleFavorite(),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                child: Divider(color: Colors.grey, thickness: 1, height: 20),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: Text(
-                      "Review",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                      Text(
+                        state.description,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Row(
-                            children: List.generate(
-                              5,
-                              (index) => Icon(
-                                Icons.star,
-                                color: Colors.orange,
-                                size: 18,
+
+                      const SizedBox(height: 30),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              _quantityButton(
+                                Icons.remove,
+                                () => context
+                                    .read<DetailCubit>()
+                                    .decreaseQuantity(),
                               ),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${state.quantity}",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              _quantityButton(
+                                Icons.add,
+                                () => context
+                                    .read<DetailCubit>()
+                                    .increaseQuantity(),
+                                isAdd: true,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            state.totalPriceString,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 30),
+                      const Divider(),
+
+                      Theme(
+                        data: Theme.of(
+                          context,
+                        ).copyWith(dividerColor: Colors.transparent),
+                        child: ExpansionTile(
+                          tilePadding: EdgeInsets.zero,
+                          childrenPadding: EdgeInsets.zero,
+                          title: const Text(
+                            "Product Detail",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                state.productDetail,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  height: 1.5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                      _buildRowItem("Nutritions", state.nutritions),
+                      const Divider(),
+
+                      _buildRowItem("Review", "", isRating: true),
+
+                      const SizedBox(height: 40),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 65,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF53B175),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(19),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Add To Basket",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                child: Divider(color: Colors.grey, thickness: 1, height: 20),
-              ),
-              GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 65,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          98,
-                          175,
-                          143,
-                        ),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
                       ),
-                      onPressed: onAddClicked,
-                      child: Text(
-                        "Log In",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        );
+      },
+    );
+  }
+
+  Widget _quantityButton(
+    IconData icon,
+    VoidCallback onTap, {
+    bool isAdd = false,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Icon(
+        icon,
+        color: isAdd ? const Color(0xFF53B175) : Colors.grey,
+        size: 35,
       ),
     );
   }
 
-  void onAddClicked() {}
-  void onGoBackClicked() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
-  }
-
-  Widget gotoLogIn(BuildContext context) {
-    return LogIn();
+  Widget _buildRowItem(
+    String title,
+    String trailingText, {
+    bool isRating = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          Row(
+            children: [
+              if (isRating) ...[
+                ...List.generate(
+                  5,
+                  (index) =>
+                      const Icon(Icons.star, color: Colors.orange, size: 20),
+                ),
+              ] else ...[
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    trailingText,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+              const SizedBox(width: 10),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+                color: Colors.black,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
