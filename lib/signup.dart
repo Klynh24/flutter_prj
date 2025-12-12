@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter01_login/main.dart';
-
-void main() {
-  runApp(SignUp());
-}
+import 'login_screen.dart';
 
 class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
   @override
   State<SignUp> createState() => _SignUpState();
 }
@@ -13,34 +11,13 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool _showPass = false;
 
-  TextEditingController _userController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _passController = new TextEditingController();
-
-  var _userErr = "Tài khoản phải trên 4 ký tự";
-  var _emailErr = "Email không hợp lệ";
-  var _passErr = "Mật khẩu phải trên 6 ký tự";
-
-  var _userInvalid = false;
-  var _emailInvalid = false;
-  var _passInvalid = false;
-
   @override
   Widget build(BuildContext context) {
-    bool isValidSignUp =
-        !_userInvalid &&
-        !_emailInvalid &&
-        !_passInvalid &&
-        _userController.text.isNotEmpty &&
-        _emailController.text.isNotEmpty &&
-        _passController.text.isNotEmpty;
-
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
-          constraints: BoxConstraints.expand(),
-          color: Colors.transparent,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,10 +25,9 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 80,
                     height: 80,
-                    padding: EdgeInsets.all(0),
                     child: Image.asset(
                       'assets/login_logo.png',
                       fit: BoxFit.contain,
@@ -60,7 +36,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 "Sign Up",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -68,8 +44,8 @@ class _SignUpState extends State<SignUp> {
                   fontSize: 35,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 35),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 35),
                 child: Text(
                   "Enter your credentials to continue",
                   style: TextStyle(
@@ -79,74 +55,63 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: TextField(
-                  controller: _userController,
-                  onChanged: onUserChanged,
                   style: TextStyle(fontSize: 19, color: Colors.black),
                   decoration: InputDecoration(
                     labelText: "Username",
-                    errorText: _userInvalid ? _userErr : null,
                     labelStyle: TextStyle(
-                      color: const Color.fromARGB(255, 175, 171, 171),
+                      color: Color.fromARGB(255, 175, 171, 171),
                       fontSize: 20,
                     ),
                   ),
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: TextField(
-                  controller: _emailController,
-                  onChanged: onEmailChanged,
                   style: TextStyle(fontSize: 19, color: Colors.black),
                   decoration: InputDecoration(
                     labelText: "Email",
-                    errorText: _emailInvalid ? _emailErr : null,
                     labelStyle: TextStyle(
-                      color: const Color.fromARGB(255, 175, 171, 171),
+                      color: Color.fromARGB(255, 175, 171, 171),
                       fontSize: 20,
                     ),
                     suffixIcon: Icon(Icons.check),
                   ),
                 ),
               ),
-
               Stack(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                     child: TextField(
-                      controller: _passController,
-                      onChanged: onPassChanged,
-                      style: TextStyle(fontSize: 19, color: Colors.black),
+                      style: const TextStyle(fontSize: 19, color: Colors.black),
                       obscureText: !_showPass,
                       decoration: InputDecoration(
                         labelText: "Password",
-                        errorText: _passInvalid ? _passErr : null,
-                        labelStyle: TextStyle(
-                          color: const Color.fromARGB(255, 175, 171, 171),
+                        labelStyle: const TextStyle(
+                          color: Color.fromARGB(255, 175, 171, 171),
                           fontSize: 20,
                         ),
                         suffixIcon: GestureDetector(
                           onTap: onToggleShowPass,
-                          child: Icon(Icons.visibility_off),
+                          child: Icon(
+                            _showPass ? Icons.visibility : Icons.visibility_off,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                         color: Colors.black,
@@ -175,7 +140,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
-
               GestureDetector(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
@@ -184,16 +148,19 @@ class _SignUpState extends State<SignUp> {
                     height: 65,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: isValidSignUp
-                            ? const Color.fromARGB(255, 98, 175, 143)
-                            : Colors.grey,
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          98,
+                          175,
+                          143,
+                        ),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: isValidSignUp ? onSignUpClicked : null,
-                      child: Text(
+                      onPressed: onSignUpClicked,
+                      child: const Text(
                         "Sign Up",
                         style: TextStyle(
                           fontSize: 20,
@@ -210,9 +177,9 @@ class _SignUpState extends State<SignUp> {
                   padding: const EdgeInsets.only(bottom: 100),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -227,12 +194,12 @@ class _SignUpState extends State<SignUp> {
                       ),
                       SizedBox(width: 8),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
+                        padding: EdgeInsets.only(bottom: 30),
                         child: Text(
                           "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: const Color.fromARGB(255, 98, 175, 143),
+                            color: Color.fromARGB(255, 98, 175, 143),
                             fontSize: 17,
                           ),
                         ),
@@ -254,60 +221,22 @@ class _SignUpState extends State<SignUp> {
     });
   }
 
-  void onUserChanged(String text) {
-    setState(() {
-      if (text.length < 4) {
-        _userInvalid = true;
-      } else {
-        _userInvalid = false;
-      }
-    });
-  }
-
-  void onEmailChanged(String text) {
-    setState(() {
-      bool emailValid = RegExp(
-        r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-      ).hasMatch(text);
-      if (!emailValid) {
-        _emailInvalid = true;
-      } else {
-        _emailInvalid = false;
-      }
-    });
-  }
-
-  void onPassChanged(String text) {
-    setState(() {
-      if (text.length < 6) {
-        _passInvalid = true;
-      } else {
-        _passInvalid = false;
-      }
-    });
-  }
-
   void onLogInClicked() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+    );
   }
 
   void onSignUpClicked() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Đăng ký thành công! Hãy đăng nhập."),
-        backgroundColor: Colors.green,
-      ),
+      const SnackBar(content: Text("Đăng ký thành công! Hãy đăng nhập.")),
     );
-    Future.delayed(Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
     });
-  }
-
-  Widget gotoLogIn(BuildContext context) {
-    return LogIn();
-  }
-
-  Widget gotoSignUp(BuildContext context) {
-    return SignUp();
   }
 }
