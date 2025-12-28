@@ -26,8 +26,8 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: Center(
                   child: SizedBox(
-                    width: 80,
-                    height: 80,
+                    width: 70,
+                    height: 70,
                     child: Image.asset(
                       'assets/login_logo.png',
                       fit: BoxFit.contain,
@@ -41,7 +41,7 @@ class _SignUpState extends State<SignUp> {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
-                  fontSize: 35,
+                  fontSize: 30,
                 ),
               ),
               const Padding(
@@ -56,27 +56,53 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                child: TextField(
+                  style: TextStyle(fontSize: 19, color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "First Name",
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 175, 171, 171),
+                      fontSize: 17,
+                    ),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                child: TextField(
+                  style: TextStyle(fontSize: 19, color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: "Last Name",
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 175, 171, 171),
+                      fontSize: 17,
+                    ),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextField(
                   style: TextStyle(fontSize: 19, color: Colors.black),
                   decoration: InputDecoration(
                     labelText: "Username",
                     labelStyle: TextStyle(
                       color: Color.fromARGB(255, 175, 171, 171),
-                      fontSize: 20,
+                      fontSize: 17,
                     ),
                   ),
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextField(
                   style: TextStyle(fontSize: 19, color: Colors.black),
                   decoration: InputDecoration(
                     labelText: "Email",
                     labelStyle: TextStyle(
                       color: Color.fromARGB(255, 175, 171, 171),
-                      fontSize: 20,
+                      fontSize: 17,
                     ),
                     suffixIcon: Icon(Icons.check),
                   ),
@@ -85,7 +111,7 @@ class _SignUpState extends State<SignUp> {
               Stack(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: TextField(
                       style: const TextStyle(fontSize: 19, color: Colors.black),
                       obscureText: !_showPass,
@@ -93,7 +119,7 @@ class _SignUpState extends State<SignUp> {
                         labelText: "Password",
                         labelStyle: const TextStyle(
                           color: Color.fromARGB(255, 175, 171, 171),
-                          fontSize: 20,
+                          fontSize: 17,
                         ),
                         suffixIcon: GestureDetector(
                           onTap: onToggleShowPass,
@@ -107,7 +133,7 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: RichText(
@@ -142,7 +168,7 @@ class _SignUpState extends State<SignUp> {
               ),
               GestureDetector(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                   child: SizedBox(
                     width: double.infinity,
                     height: 65,
@@ -179,7 +205,7 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -194,7 +220,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       SizedBox(width: 8),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 30),
+                        padding: EdgeInsets.only(bottom: 10),
                         child: Text(
                           "Login",
                           style: TextStyle(
